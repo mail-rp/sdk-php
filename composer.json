@@ -5,6 +5,10 @@
     "license": "MIT",
     "keywords": ["mail-rp", "mail", "roleplay", "api", "sdk"],
     "homepage": "https://mail-rp.com",
+    "support": {
+        "source": "https://github.com/mail-rp/sdk-php",
+        "issues": "https://github.com/mail-rp/sdk-php/issues"
+    },
     "authors": [
         {
             "name": "Team Xelyos",

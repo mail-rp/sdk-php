@@ -2,7 +2,7 @@
 
 PHP client for the [Mail RP API](https://api.mail-rp.com/docs/): domains, users, calendars, newsletters, mail sending.
 
-> **Development version (`1.0.0-dev`)**: the API surface may still change before the first stable release.
+> **Development version (`1.0.1-dev`)**: the API surface may still change before the first stable release.
 
 - PHP ≥ 8.2, `curl` extension (no other dependency)
 - Typed responses (read-only objects), typed exceptions, automatic pagination
@@ -198,6 +198,12 @@ composer install
 composer test      # PHPUnit
 composer phpstan   # max level
 ```
+
+## Repository
+
+This GitHub repository is a read-only mirror of the development version: the code is maintained in the Mail RP
+repository (`sdk/php`) and published here with each release. Please open issues here; pull requests cannot be merged
+directly into this mirror.
 
 ## License
 
