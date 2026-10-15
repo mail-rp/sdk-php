@@ -18,7 +18,7 @@ use Xelyos\MailRp\ResponseMeta;
 final class ApiRequester
 {
     /** Format of the dates sent in query strings and bodies (period of the events) */
-    public const string DATE_FORMAT = 'Y-m-d H:i';
+    public const DATE_FORMAT = 'Y-m-d H:i';
 
     private ?ResponseMeta $lastResponse = null;
 
