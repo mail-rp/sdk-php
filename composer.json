@@ -1,0 +1,46 @@
+{
+    "name": "xelyos/mail-rp",
+    "description": "PHP SDK for the Mail RP API",
+    "type": "library",
+    "keywords": ["mail-rp", "mail", "roleplay", "api", "sdk"],
+    "homepage": "https://mail-rp.com",
+    "authors": [
+        {
+            "name": "Team Xelyos",
+            "email": "contact@xelyos.fr",
+            "homepage": "https://xelyos.fr/"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "nyholm/psr7": "^1.8",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5 || ^12.0",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.1"
+    },
+    "suggest": {
+        "psr/http-client-implementation": "To send the requests through your own PSR-18 client (Guzzle, Symfony HttpClient...) with Psr18Transport"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xelyos\\MailRp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Xelyos\\MailRp\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpstan": "phpstan analyse --no-progress"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
