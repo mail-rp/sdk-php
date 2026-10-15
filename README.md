@@ -198,3 +198,7 @@ composer install
 composer test      # PHPUnit
 composer phpstan   # max level
 ```
+
+## License
+
+[MIT](LICENSE) © Xelyos
