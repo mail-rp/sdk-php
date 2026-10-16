@@ -2,7 +2,7 @@
 
 PHP client for the [Mail RP API](https://api.mail-rp.com/docs/): domains, users, calendars, newsletters, mail sending.
 
-> **Development version (`1.0.1-dev`)**: the API surface may still change before the first stable release.
+> **Development version (`1.0.2-dev`)**: the API surface may still change before the first stable release.
 
 - PHP ≥ 8.2, `curl` extension (no other dependency)
 - Typed responses (read-only objects), typed exceptions, automatic pagination
