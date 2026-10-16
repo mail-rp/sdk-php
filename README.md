@@ -2,7 +2,7 @@
 
 PHP client for the [Mail RP API](https://api.mail-rp.com/docs/): domains, users, calendars, newsletters, mail sending.
 
-> **Development version (`1.0.2-dev`)**: the API surface may still change before the first stable release.
+> **Development version (`1.0.3-dev`)**: the API surface may still change before the first stable release.
 
 - PHP ≥ 8.2, `curl` extension (no other dependency)
 - Typed responses (read-only objects), typed exceptions, automatic pagination
@@ -44,10 +44,6 @@ $mailRp = new MailRpClient(
     transport: null,                    // CurlTransport by default
 );
 ```
-
-`apiKey` is optional (for instance when it comes from a configuration that may be empty). `$mailRp->hasApiKey()` tells
-whether a key is set; without one, requests are sent unauthenticated and the API answers `401`
-(`AuthenticationException`), except on the public routes such as `$mailRp->system->health()`.
 
 A key only has access to the permissions ticked in the panel and, when it is restricted, to its domains.
 `$mailRp->system->checkKey(true)` returns the name, the language and the permissions of the key.

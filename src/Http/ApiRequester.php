@@ -29,7 +29,7 @@ final class ApiRequester
      * @param (\Closure(int): void)|null $sleep waits the given number of seconds (replaced in tests)
      */
     public function __construct(
-        private readonly ?string $apiKey,
+        private readonly string $apiKey,
         private readonly string $baseUrl,
         private readonly Transport $transport,
         private readonly float $timeout,
@@ -40,11 +40,6 @@ final class ApiRequester
         $this->sleep = $sleep ?? static function (int $seconds): void {
             sleep($seconds);
         };
-    }
-
-    public function hasApiKey(): bool
-    {
-        return null !== $this->apiKey;
     }
 
     public function getLastResponse(): ?ResponseMeta
@@ -67,12 +62,10 @@ final class ApiRequester
         }
 
         $headers = [
+            'Authorization' => 'Bearer ' . $this->apiKey,
             'Accept' => 'application/json',
             'User-Agent' => 'mail-rp-php/' . MailRpClient::VERSION,
         ];
-        if (null !== $this->apiKey) {
-            $headers['Authorization'] = 'Bearer ' . $this->apiKey;
-        }
         $payload = null;
         if (null !== $body) {
             $headers['Content-Type'] = 'application/json';

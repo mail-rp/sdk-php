@@ -25,7 +25,7 @@ use Xelyos\MailRp\Resource\UserResource;
  */
 final class MailRpClient
 {
-    public const VERSION = '1.0.2-dev';
+    public const VERSION = '1.0.3-dev';
     public const DEFAULT_BASE_URL = 'https://api.mail-rp.com';
 
     public readonly SystemResource $system;
@@ -38,8 +38,7 @@ final class MailRpClient
     private readonly ApiRequester $requester;
 
     /**
-     * @param string|null                $apiKey        key created in the panel (`xls-mrp-...`); without it, only the
-     *                                                  public routes (`system->health()`) can be called
+     * @param string                     $apiKey        key created in the panel (`xls-mrp-...`)
      * @param string                     $baseUrl       URL of the API
      * @param float                      $timeout       seconds before a request is abandoned (ignored by {@see Http\Psr18Transport})
      * @param int                        $maxRetries    automatic retries of a request refused with 429 (0 to disable)
@@ -49,7 +48,7 @@ final class MailRpClient
      * @param (\Closure(int): void)|null $sleep         waits the given seconds between two retries (`sleep()` by default)
      */
     public function __construct(
-        ?string $apiKey = null,
+        string $apiKey,
         string $baseUrl = self::DEFAULT_BASE_URL,
         float $timeout = 30.0,
         int $maxRetries = 2,
@@ -57,12 +56,15 @@ final class MailRpClient
         ?Transport $transport = null,
         ?\Closure $sleep = null,
     ) {
+        if ('' === trim($apiKey)) {
+            throw new InvalidArgumentException('The Mail RP API key is empty');
+        }
         if ($timeout <= 0 || $maxRetries < 0 || $maxRetryDelay < 0) {
             throw new InvalidArgumentException('timeout must be positive, maxRetries and maxRetryDelay cannot be negative');
         }
 
         $this->requester = new ApiRequester(
-            null === $apiKey || '' === trim($apiKey) ? null : trim($apiKey),
+            trim($apiKey),
             $baseUrl,
             $transport ?? new CurlTransport(),
             $timeout,
@@ -77,15 +79,6 @@ final class MailRpClient
         $this->users = new UserResource($this->requester);
         $this->calendars = new CalendarResource($this->requester);
         $this->newsletters = new NewsletterResource($this->requester);
-    }
-
-    /**
-     * Whether an API key is set on this client (a blank key counts as missing). Without a key, the requests are sent
-     * without authentication and the API answers `401` ({@see Exception\AuthenticationException}) except on the public routes.
-     */
-    public function hasApiKey(): bool
-    {
-        return $this->requester->hasApiKey();
     }
 
     /**
