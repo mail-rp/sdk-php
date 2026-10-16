@@ -20,7 +20,7 @@ use Xelyos\MailRp\Model\Page;
 abstract class AbstractResource
 {
     /** Largest page the API accepts */
-    public const int MAX_LIMIT = 100;
+    public const MAX_LIMIT = 100;
 
     public function __construct(
         protected readonly ApiRequester $requester,

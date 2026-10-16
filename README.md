@@ -45,6 +45,10 @@ $mailRp = new MailRpClient(
 );
 ```
 
+`apiKey` is optional (for instance when it comes from a configuration that may be empty). `$mailRp->hasApiKey()` tells
+whether a key is set; without one, requests are sent unauthenticated and the API answers `401`
+(`AuthenticationException`), except on the public routes such as `$mailRp->system->health()`.
+
 A key only has access to the permissions ticked in the panel and, when it is restricted, to its domains.
 `$mailRp->system->checkKey(true)` returns the name, the language and the permissions of the key.
 

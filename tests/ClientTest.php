@@ -15,7 +15,6 @@ use Xelyos\MailRp\Enum\SortOrder;
 use Xelyos\MailRp\Exception\ApiException;
 use Xelyos\MailRp\Exception\AuthenticationException;
 use Xelyos\MailRp\Exception\ConflictException;
-use Xelyos\MailRp\Exception\InvalidArgumentException;
 use Xelyos\MailRp\Exception\NotFoundException;
 use Xelyos\MailRp\Exception\PermissionDeniedException;
 use Xelyos\MailRp\Exception\RateLimitException;
@@ -230,10 +229,24 @@ final class ClientTest extends TestCase
         $this->client()->users->get('commander@lspd.gov');
     }
 
-    public function testRejectsEmptyKey(): void
+    public function testHasApiKey(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        new MailRpClient(' ');
+        self::assertTrue($this->client()->hasApiKey());
+        self::assertTrue(new MailRpClient(' xls-mrp-test ')->hasApiKey());
+        self::assertFalse(new MailRpClient()->hasApiKey());
+        self::assertFalse(new MailRpClient(null)->hasApiKey());
+        self::assertFalse(new MailRpClient('')->hasApiKey());
+        self::assertFalse(new MailRpClient(' ')->hasApiKey());
+    }
+
+    public function testRequestsWithoutKeyAreNotAuthenticated(): void
+    {
+        $this->transport->queue(200, ['status' => 'online', 'version' => '2.0.0']);
+        $client = new MailRpClient(baseUrl: 'https://api.example.test', transport: $this->transport);
+
+        $client->system->health();
+
+        self::assertArrayNotHasKey('Authorization', $this->transport->last()['headers']);
     }
 
     public function testPsr18Transport(): void
