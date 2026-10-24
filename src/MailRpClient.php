@@ -25,7 +25,7 @@ use Xelyos\MailRp\Resource\UserResource;
  */
 final class MailRpClient
 {
-    public const VERSION = '1.0.3-dev';
+    public const VERSION = '1.0.0';
     public const DEFAULT_BASE_URL = 'https://api.mail-rp.com';
 
     public readonly SystemResource $system;
