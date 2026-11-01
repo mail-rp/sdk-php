@@ -14,4 +14,5 @@ enum Color: string
     case WARNING = 'warning';
     case DANGER = 'danger';
     case INFO = 'info';
+    case PURPLE = 'purple';
 }
